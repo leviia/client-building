@@ -20,8 +20,8 @@ Rem            If you intend to modify or specify them outside, keep the scheme!
 Rem ************************************************************************************************************************************************************************************
 Rem Branding options
 
-if "%APP_NAME%" == ""                       set APP_NAME=Nextcloud
-if "%APP_NAME_SANITIZED%" == ""             set APP_NAME_SANITIZED=Nextcloud
+if "%APP_NAME%" == ""                       set APP_NAME=leviia
+if "%APP_NAME_SANITIZED%" == ""             set APP_NAME_SANITIZED=leviia
 
 if "%USE_BRANDING%" == ""                   set USE_BRANDING=0
 
@@ -31,14 +31,14 @@ Rem Build environment
 rem Comma separated list of build targets (default: Win64, Win32)
 if "%BUILD_TARGETS%" == ""                  set BUILD_TARGETS=Win64,Win32
 
-if "%PROJECT_PATH%" == ""                   set PROJECT_PATH=c:/Nextcloud/client-building
-if "%QT_PATH%" == ""                        set QT_PATH=c:/Qt/5.12.10
+if "%PROJECT_PATH%" == ""                   set PROJECT_PATH=c:/Users/admin/Downloads/client-building
+if "%QT_PATH%" == ""                        set QT_PATH=c:/Qt/5.15.2
 
                                             set PATH=c:/Nextcloud/tools/cmake/bin;c:/Nextcloud/tools;C:/Program Files (x86)/NSIS;%PATH%
 
 if "%OPENSSL_PATH%" == ""                   set OPENSSL_PATH=c:/OpenSSL
 
-if "%Png2Ico_EXECUTABLE%" == ""             set Png2Ico_EXECUTABLE=c:/Nextcloud/tools/png2ico.exe
+if "%Png2Ico_EXECUTABLE%" == ""             set Png2Ico_EXECUTABLE=c:/Users/admin/Downloads/png2ico.exe
 
 if "%VS_VERSION%" == ""                     set VS_VERSION=2019
 
@@ -116,10 +116,10 @@ if "%INSTALLER_OUTPUT_PATH%" == ""          set INSTALLER_OUTPUT_PATH=%PROJECT_P
 
 Rem ************************************************************************************************************************************************************************************
 Rem Code Signing Options: 1 = enable (default), 0 = disable
-if "%USE_CODE_SIGNING%" == ""               set USE_CODE_SIGNING=1
+if "%USE_CODE_SIGNING%" == ""               set USE_CODE_SIGNING=0
 
 Rem Vendor Name: Used for signing, also used by the installer
-if "%APPLICATION_VENDOR%" == ""             set APPLICATION_VENDOR=Nextcloud GmbH
+if "%APPLICATION_VENDOR%" == ""             set APPLICATION_VENDOR=Leviia
 
 Rem PFX Key and Password - it may be a good idea to set the password outside (environment variables)
 if "%P12_KEY%" == ""                        set P12_KEY=%PROJECT_PATH%\key\%APPLICATION_VENDOR%.p12
