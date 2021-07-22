@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for d in /usr/local/Cellar/*/*/bin
+for d in /usr/local/opt/*/bin
 do
 echo $d
 export PATH="$PATH:$d"
@@ -8,9 +8,13 @@ done
 
 echo $PATH
 
-export OPENSSL_ROOT_DIR="/usr/local/Cellar/openssl@1.1/1.1.1k/"
-export ZLIB_LIBRARY="/usr/local/Cellar/zlib/1.2.11/lib/"
-export ZLIB_INCLUDE_DIR="/usr/local/Cellar/zlib/1.2.11/include/"
+export OPENSSL_ROOT_DIR="$(brew --prefix openssl)"
+export ZLIB_LIBRARY="$(brew --prefix zlib)/lib/"
+export ZLIB_INCLUDE_DIR="$(brew --prefix zlib)/include/"
+
+echo $OPENSSL_ROOT_DIR
+echo $ZLIB_LIBRARY
+echo $ZLIB_INCLUDE_DIR
 
 mkdir -p build
 cd build
