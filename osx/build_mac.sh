@@ -21,5 +21,5 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ../desktop
 make
 make install
-./admin/osx/create_mac.sh ../install .
+./admin/osx/create_mac.sh ../install . $1
 cd -
