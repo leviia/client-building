@@ -10,3 +10,5 @@ libs/
 qtkeychain/
 zlib/
 .vscode/
+.DS_Store
+build/

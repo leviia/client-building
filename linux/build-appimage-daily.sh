@@ -27,7 +27,7 @@ make install
 
 #Build client
 cd /build
-git clone --depth 1 https://github.com/nextcloud/desktop.git
+git clone --depth 1 https://github.com/xavi-b/desktop.git
 mkdir build-client
 cd build-client
 cmake -D CMAKE_INSTALL_PREFIX=/usr \
