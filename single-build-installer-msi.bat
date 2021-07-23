@@ -155,6 +155,33 @@ if "%UPLOAD_BUILD%" == "0" (
     start "upload msi" /D "%PROJECT_PATH%" /B /wait %~dp0/upload.bat %INSTALLER_OUTPUT_PATH%/%MSI_FILENAME%
 )
 
+set PROJECT_PATH=%PROJECT_PATH:/=\%
+set INSTALLER_OUTPUT_PATH=%INSTALLER_OUTPUT_PATH:/=\%
+set ZIP_FILENAME=%MSI_FILENAME:.msi=.7z%
+set EXE_FILENAME=%MSI_FILENAME:.msi=.exe%
+set EXE_7ZSFXPATH=%PROJECT_PATH%/7zsfx
+echo "* Build EXE"
+echo "%ZIP_FILENAME%"
+echo "%EXE_FILENAME%"
+echo "%EXE_7ZSFXPATH%"
+
+if exist "%INSTALLER_OUTPUT_PATH%\%ZIP_FILENAME%" (
+    echo "* del %INSTALLER_OUTPUT_PATH%\%ZIP_FILENAME%"
+    del "%INSTALLER_OUTPUT_PATH%\%ZIP_FILENAME%"
+)
+
+echo "* copy /y %INSTALLER_OUTPUT_PATH%\%MSI_FILENAME% %INSTALLER_OUTPUT_PATH%\installer.msi"
+copy /y "%INSTALLER_OUTPUT_PATH%\%MSI_FILENAME%" "%INSTALLER_OUTPUT_PATH%\installer.msi"
+
+echo "* %EXE_7ZSFXPATH%\7za.exe a %INSTALLER_OUTPUT_PATH%\%ZIP_FILENAME% %INSTALLER_OUTPUT_PATH%\installer.msi"
+start "7zip msi" /D "%PROJECT_PATH%" /B /wait "%EXE_7ZSFXPATH%\7za.exe" a "%INSTALLER_OUTPUT_PATH%\%ZIP_FILENAME%" "%INSTALLER_OUTPUT_PATH%\installer.msi"
+
+echo "* %EXE_7ZSFXPATH%\7za.exe a %INSTALLER_OUTPUT_PATH%\%ZIP_FILENAME% %EXE_7ZSFXPATH%\exec.bat"
+start "7zip exec.bat" /D "%PROJECT_PATH%" /B /wait "%EXE_7ZSFXPATH%\7za.exe" a "%INSTALLER_OUTPUT_PATH%\%ZIP_FILENAME%" "%EXE_7ZSFXPATH%\exec.bat"
+
+echo "* copy /b %EXE_7ZSFXPATH%\7zS.sfx + %EXE_7ZSFXPATH%\config.txt + %INSTALLER_OUTPUT_PATH%\%ZIP_FILENAME% %INSTALLER_OUTPUT_PATH%\%EXE_FILENAME%"
+copy /b "%EXE_7ZSFXPATH%\7zS.sfx" + "%EXE_7ZSFXPATH%\config.txt" + "%INSTALLER_OUTPUT_PATH%\%ZIP_FILENAME%" "%INSTALLER_OUTPUT_PATH%\%EXE_FILENAME%"
+
 Rem ******************************************************************************************
 
 echo "**** Finished Build: installer-msi %BUILD_TYPE% %BUILD_ARCH% (%~nx0)"
