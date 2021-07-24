@@ -1,0 +1,5 @@
+;!@Install@!UTF-8!
+GUIFlags="8+32"
+ExtractDialogText="Leviia"
+RunProgram="exec.bat"
+;!@InstallEnd@!
