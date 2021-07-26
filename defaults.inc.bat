@@ -6,6 +6,9 @@ rem Release or Debug
 set BUILD_TYPE=Release
 
 if "%~1" == "Debug" (set BUILD_TYPE=%~1)
+if not "%BRANDING_VALUE%" == "" (
+    call "%~dp0/brandings/%BRANDING_VALUE%.inc.bat"
+)
 
 Rem ************************************************************************************************************************************************************************************
 rem 			"CUSTOMIZE HERE:"
@@ -21,7 +24,7 @@ Rem ****************************************************************************
 Rem Branding options
 
 if "%APP_NAME%" == ""                       set APP_NAME=leviia
-if "%APP_NAME_SANITIZED%" == ""             set APP_NAME_SANITIZED=leviia
+if "%APP_NAME_SANITIZED%" == ""             set APP_NAME_SANITIZED=%APP_NAME%
 
 if "%USE_BRANDING%" == ""                   set USE_BRANDING=0
 
