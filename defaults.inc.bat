@@ -8,6 +8,8 @@ set BUILD_TYPE=Release
 if "%~1" == "Debug" (set BUILD_TYPE=%~1)
 if not "%BRANDING_VALUE%" == "" (
     call "%~dp0/desktop/brandings/%BRANDING_VALUE%.inc.bat"
+) else (
+    set BRANDING_VALUE="default"
 )
 
 Rem ************************************************************************************************************************************************************************************
