@@ -8,7 +8,7 @@ done
 
 echo $PATH
 
-export OPENSSL_ROOT_DIR="$(brew --prefix openssl)"
+export OPENSSL_ROOT_DIR="$(brew --prefix openssl)/"
 export ZLIB_LIBRARY="$(brew --prefix zlib)/lib/"
 export ZLIB_INCLUDE_DIR="$(brew --prefix zlib)/include/"
 
