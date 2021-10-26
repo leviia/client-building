@@ -11,3 +11,4 @@ zlib/
 .vscode/
 .DS_Store
 build/
+output/

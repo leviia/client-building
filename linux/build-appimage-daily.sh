@@ -27,7 +27,8 @@ make install
 
 #Build client
 cd /build
-git clone --depth 1 https://github.com/xavi-b/desktop.git
+#git clone --depth 1 https://github.com/leviia/desktop.git
+cp -rf /desktop .
 mkdir build-client
 cd build-client
 cmake -D CMAKE_INSTALL_PREFIX=/usr \
@@ -37,6 +38,7 @@ cmake -D CMAKE_INSTALL_PREFIX=/usr \
     -D QTKEYCHAIN_INCLUDE_DIR=/app/usr/include/qt5keychain/ \
     -DMIRALL_VERSION_SUFFIX=daily \
     -DMIRALL_VERSION_BUILD=`date +%Y%m%d` \
+    -DBRANDING_VALUE=default \
     /build/desktop
 make -j4
 make DESTDIR=/app install
@@ -51,7 +53,7 @@ rm -rf ./usr/mkspecs
 rm -rf ./usr/lib/x86_64-linux-gnu/
 
 # Don't bundle nextcloudcmd as we don't run it anyway
-rm -rf ./usr/bin/nextcloudcmd
+rm -rf ./usr/bin/leviiacmd
 
 # Don't bundle the explorer extentions as we can't do anything with them in the AppImage
 rm -rf ./usr/share/caja-python/
@@ -59,13 +61,13 @@ rm -rf ./usr/share/nautilus-python/
 rm -rf ./usr/share/nemo-python/
 
 # Move sync exclude to right location
-mv ./etc/Nextcloud/sync-exclude.lst ./usr/bin/
+mv ./etc/Leviia/sync-exclude.lst ./usr/bin/
 rm -rf ./etc
 
 # com.nextcloud.desktopclient.nextcloud.desktop
 DESKTOP_FILE=$(ls /app/usr/share/applications/*.desktop)
-sed -i -e 's|Icon=nextcloud|Icon=Nextcloud|g' ${DESKTOP_FILE} # Bug in desktop file?
-cp ./usr/share/icons/hicolor/512x512/apps/Nextcloud.png . # Workaround for linuxeployqt bug, FIXME
+sed -i -e 's|Icon=leviia|Icon=Leviia|g' ${DESKTOP_FILE} # Bug in desktop file?
+cp ./usr/share/icons/hicolor/512x512/apps/Leviia.png . # Workaround for linuxeployqt bug, FIXME
 
 
 # Because distros need to get their shit together
@@ -88,7 +90,7 @@ export LD_LIBRARY_PATH=/app/usr/lib/
 ./squashfs-root/AppRun ${DESKTOP_FILE} -bundle-non-qt-libs -qmldir=/build/desktop/src/gui
 
 # Set origin
-./squashfs-root/usr/bin/patchelf --set-rpath '$ORIGIN/' /app/usr/lib/libnextcloudsync.so.0
+./squashfs-root/usr/bin/patchelf --set-rpath '$ORIGIN/' /app/usr/lib/libleviiasync.so.0
 
 # Build AppImage
 ./squashfs-root/AppRun ${DESKTOP_FILE} -appimage
@@ -98,7 +100,7 @@ export VERSION_MINOR=$(cat build-client/version.h | grep MIRALL_VERSION_MINOR | 
 export VERSION_PATCH=$(cat build-client/version.h | grep MIRALL_VERSION_PATCH | cut -d ' ' -f 3)
 export VERSION_BUILD=$(cat build-client/version.h | grep MIRALL_VERSION_BUILD | cut -d ' ' -f 3)
 
-mv Nextcloud*.AppImage Nextcloud-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_BUILD}-daily-x86_64.AppImage
+mv Leviia*.AppImage Leviia-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_BUILD}-daily-x86_64.AppImage
 
-mv Nextcloud*.AppImage /output/
-chown user /output/Nextcloud*.AppImage
+mv Leviia*.AppImage /output/
+chown user /output/Leviia*.AppImage
