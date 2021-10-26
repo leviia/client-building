@@ -22,6 +22,7 @@ docker run \
     -v $DIR:/input \
     -v $PWD/desktop:/desktop \
     -v $PWD/output/$DATE:/output \
+    -e "APP_NAME=$1" \
     ghcr.io/nextcloud/continuous-integration-client-appimage:client-appimage-2 \
     /input/build-appimage-daily.sh $(id -u)
 
