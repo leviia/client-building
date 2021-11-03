@@ -16,6 +16,7 @@ echo $OPENSSL_ROOT_DIR
 echo $ZLIB_LIBRARY
 echo $ZLIB_INCLUDE_DIR
 
+rm -rf build
 mkdir -p build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ../desktop -DBRANDING_VALUE=$1
