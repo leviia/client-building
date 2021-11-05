@@ -16,6 +16,7 @@ echo $OPENSSL_ROOT_DIR
 echo $ZLIB_LIBRARY
 echo $ZLIB_INCLUDE_DIR
 
+rm -rf install/*.app
 rm -rf build
 mkdir -p build
 cd build
