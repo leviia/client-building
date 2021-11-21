@@ -12,7 +12,7 @@ if [ ! -d "$PWD/desktop" ] ; then
     git clone --depth 1 https://github.com/leviia/desktop.git
 else
     cd $PWD/desktop
-    git pull
+#    git pull
     cd -
 fi
 
@@ -24,6 +24,7 @@ docker run \
     -v $PWD/output/$DATE:/output \
     -e "APP_NAME=$1" \
     -e "APP_BUNDLE=$2" \
+    -e "APP_CMD=1" \
     ghcr.io/nextcloud/continuous-integration-client-appimage:client-appimage-2 \
     /input/build-appimage-daily.sh $(id -u)
 
