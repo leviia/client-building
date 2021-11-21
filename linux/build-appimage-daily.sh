@@ -64,7 +64,8 @@ rm -rf ./usr/mkspecs
 rm -rf ./usr/lib/x86_64-linux-gnu/
 
 # Don't bundle nextcloudcmd as we don't run it anyway
-rm -rf ./usr/bin/${APP_NAME}cmd
+mkdir -p /output/cmd
+mv ./usr/bin/${APP_NAME}cmd /output/cmd/.
 
 # Don't bundle the explorer extentions as we can't do anything with them in the AppImage
 rm -rf ./usr/share/caja-python/
@@ -92,6 +93,9 @@ cp -P /usr/local/lib/libcrypto.so* ./usr/lib/
 
 # NSS fun
 cp -P -r /usr/lib/x86_64-linux-gnu/nss ./usr/lib/
+
+cp -R ./usr/lib/* /output/cmd/.
+cp /usr/lib/x86_64-linux-gnu/libqt5keychain.so* /output/cmd/.
 
 # Use linuxdeployqt to deploy
 cd /build
