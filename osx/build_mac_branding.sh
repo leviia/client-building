@@ -21,6 +21,7 @@ rm -rf build
 mkdir -p build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ../desktop -DBRANDING_VALUE=$1 \
+    -DBUILD_OWNCLOUD_OSX_BUNDLE=ON \
     -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/" \
     -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
 make
