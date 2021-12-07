@@ -132,7 +132,7 @@ if [[ $APP_CMD == 1 ]]; then
     APPIMAGE=${APPIMAGE}cmd
 fi
 
-mv ${UPPER_APP_NAME}*.AppImage ${APPIMAGE}-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_BUILD}-daily-x86_64.AppImage
+mv *.AppImage ${APPIMAGE}-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_BUILD}-daily-x86_64.AppImage
 
 mv ${APPIMAGE}*.AppImage /output/
 chown user /output/${APPIMAGE}*.AppImage
