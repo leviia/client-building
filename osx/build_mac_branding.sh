@@ -16,14 +16,36 @@ echo $OPENSSL_ROOT_DIR
 echo $ZLIB_LIBRARY
 echo $ZLIB_INCLUDE_DIR
 
+if [[ "$2" == "m1" ]]; then
+export QT_PATH=$(brew --prefix qt5)/bin
+export Qt5_DIR=$(brew --prefix qt5)/lib/cmake/Qt5
+export Qt5LinguistTools_DIR=$(brew --prefix qt5)/lib/cmake/Qt5LinguistTools
+export Qt5Keychain_DIR=/Users/m1/workspace/qtkeychain-arm64-release/lib/cmake/Qt5Keychain
+
+echo $QT_PATH
+echo $Qt5_DIR
+echo $Qt5LinguistTools_DIR
+echo $Qt5Keychain_DIR
+
+export MACOSX_DEPLOYMENT_TARGET=10.13
+fi
+
 rm -rf install/*.app
 rm -rf build
 mkdir -p build
 cd build
+
+if [[ "$2" == "m1" ]]; then
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ../desktop -DBRANDING_VALUE=$1 \
     -DBUILD_OWNCLOUD_OSX_BUNDLE=ON \
-    -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/" \
-    -DCMAKE_OSX_DEPLOYMENT_TARGET=10.10
+    -DCMAKE_OSX_ARCHITECTURES="arm64" \
+    -DCMAKE_MACOSX_RPATH=TRUE
+else
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ../desktop -DBRANDING_VALUE=$1 \
+    -DBUILD_OWNCLOUD_OSX_BUNDLE=ON \
+    -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/" \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
+fi
 make
 make install
 
