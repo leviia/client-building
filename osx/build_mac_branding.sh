@@ -30,7 +30,7 @@ echo $Qt5Keychain_DIR
 export MACOSX_DEPLOYMENT_TARGET=10.13
 fi
 
-rm -rf install/*.app
+rm -rf install/*
 rm -rf build
 mkdir -p build
 cd build
@@ -49,14 +49,12 @@ fi
 make
 make install
 
-codesign -s 'Developer ID Application: LEVIIA (7S955PF2T8)' --timestamp --options=runtime --force --preserve-metadata=entitlements --verbose=4 --deep ../install/Leviia.app
+codesign -s 'Developer ID Application: LEVIIA (7S955PF2T8)' --timestamp --options=runtime --force --preserve-metadata=entitlements --verbose=4 --deep ../install/Leviiasync.app
 
 ./admin/osx/create_mac.sh ../install . "Developer ID Installer: LEVIIA (7S955PF2T8)"
 
-cd -
-
 # Notarization by Apple
-cd install/
+cd ../install/
 rm *-*.pkg.tbz
 MY_PKG=`echo $(ls *.pkg)`
 
@@ -68,3 +66,5 @@ sleep 600
 
 xcrun stapler staple -v ${MY_PKG}
 xcrun stapler validate -v ${MY_PKG}
+
+cd ..
