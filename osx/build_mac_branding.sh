@@ -49,7 +49,8 @@ fi
 make
 make install
 
-codesign -s 'Developer ID Application: LEVIIA (7S955PF2T8)' --timestamp --options=runtime --force --preserve-metadata=entitlements --verbose=4 --deep ../install/Leviiasync.app
+MY_APP=`echo $(ls ../install/*.app)`
+codesign -s 'Developer ID Application: LEVIIA (7S955PF2T8)' --timestamp --options=runtime --force --preserve-metadata=entitlements --verbose=4 --deep ../install/${MY_APP}
 
 ./admin/osx/create_mac.sh ../install . "Developer ID Installer: LEVIIA (7S955PF2T8)"
 
