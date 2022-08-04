@@ -49,15 +49,26 @@ fi
 make
 make install
 
-MY_APP=`echo $(ls ../install/*.app)`
+echo "  ==== codesign"
+MY_APP=`echo $(ls --color=never ../install | grep --color=never .app)`
 codesign -s 'Developer ID Application: LEVIIA (7S955PF2T8)' --timestamp --options=runtime --force --preserve-metadata=entitlements --verbose=4 --deep ../install/${MY_APP}
 
+echo "  ==== create_mac"
 ./admin/osx/create_mac.sh ../install . "Developer ID Installer: LEVIIA (7S955PF2T8)"
 
+echo "  ==== notarize"
 # Notarization by Apple
 cd ../install/
 rm *-*.pkg.tbz
 MY_PKG=`echo $(ls *.pkg)`
+
+if [[ "$2" == "m1" ]]; then
+    mv $MY_PKG $MY_PKG.m1.pkg
+    MY_PKG=`echo $(ls *.pkg)`
+else
+    mv $MY_PKG $MY_PKG.intel.pkg
+    MY_PKG=`echo $(ls *.pkg)`
+fi
 
 NOTARIZATION_ACCOUNT=$(security find-generic-password -w -s "NOTARIZATION_ACCOUNT")
 NOTARIZATION_PASSWORD=$(security find-generic-password -w -s "NOTARIZATION_PASSWORD")
